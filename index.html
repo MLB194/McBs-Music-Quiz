@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Redirecting...</title>
-<script>
-// List of Spotify Track IDs (replace these with your actual song IDs)
-const songIds = [
-"3n3Ppam7vgaVa1iaRUc9Lp", // Song 1
-"4uLU6hMCjMI75M1A2tKUQC", // Song 2
-"1h6b6aOqV6dfqK0mClXJeX", // Song 3
-"3VIdYzkqBihol0yggk84oD", // Song 4
-// Add more song IDs here...
-];
+  <meta charset="UTF-8">
+  <title>McB's Music Quiz!</title>
+  <script>
+    // Manually update this list with your song IDs
+    const songIds = [
+      "3n3Ppam7vgaVa1iaRUc9Lp", // Example Song 1
+      "4uLU6hMCjMI75M1A2tKUQC", // Example Song 2
+      "1h6b6aOqV6dfqK0mClXJeX", // Example Song 3
+      "3VIdYzkqBihol0yggk84oD", // Example Song 4
+      // Add more song IDs here...
+    ];
 
-// Pick a random song ID from the list
-const randomSongId = songIds[Math.floor(Math.random() * songIds.length)];
-
-// Redirect to the chosen Spotify track
-setTimeout(function () {
-window.location.href = `https://open.spotify.com/track/${randomSongId}`;
-}, 3000); // 3-second delay
-</script>
+    // Function to pick a random song from the list and redirect to it
+    function playRandomSong() {
+      const randomSongId = songIds[Math.floor(Math.random() * songIds.length)];
+      setTimeout(function () {
+        window.location.href = `https://open.spotify.com/track/${randomSongId}`;
+      }, 3000); // 3-second delay
+    }
+  </script>
 </head>
 <body>
-<p>Hang tight! Redirecting to a random song...</p>
+  <h1>Welcome to McB's Music Quiz!</h1>
+
+  <div>
+    <button onclick="playRandomSong()">Play a Random Song</button>
+  </div>
+
+  <p>Enjoy the quiz! A random song from the list will play after a short delay.</p>
 </body>
 </html>
