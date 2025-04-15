@@ -1,25 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Redirecting...</title>
-  <script>
-    function getQueryParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
-    }
-
-    const trackId = getQueryParam("song");
-    if (trackId) {
-      setTimeout(function () {
-        window.location.href = `https://open.spotify.com/track/${trackId}`;
-      }, 3000);
-    } else {
-      document.write("<p>No song specified.</p>");
-    }
-  </script>
+  <meta charset="UTF-8" />
+  <title>McB's Blind Music Quiz</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding-top: 100px; }
+    #reveal { display: none; margin-top: 20px; }
+  </style>
 </head>
 <body>
-  <p>Hang tight! Redirecting to your song...</p>
-</body>
-</html>
+  <h1>McB’s Blind Music Quiz</h1>
+  <p id="status">Connecting to Spotify...</p>
+  <button id="startBtn" style="display:none;">Play Random Song</button>
+  <div id="reveal">
+    <p><strong>Now Playing:</strong> <span id="trackInfo">???</span></p>
+    <button onclick="revealAnswer()">Reveal Answer</button>
+  </div>
+
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script>
+    const CLIENT_ID = 'YOUR_CLIENT_ID'; // <--- Replace with your real Client ID
+    const REDIRECT_URI = window.location.origin + '/callback.html';
+
+    const SONG_IDS = [
+      "3n3Ppam7vgaVa1iaRUc9Lp", "4uLU6hMCjMI75M1A2tKUQC", "3VIdYzkqBihol0yggk84oD"
+      // Add as many song IDs as you want
+    ];
+
+    const tokenKey = 'spotify_token';
+
+    function redirectToSpotifyAuth() {
+      const scope = 'streaming user-read-email user-read-private';
+      const authUrl = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(scope)}`;
+      window.location.href = authUrl;
+    }
+
+    function getAccessToken() {
+      const hash = window.location.hash;
+      if (hash) {
+        const params = new URLSearchParams(hash.replace('#', ''));
+        const token = params.get('access_token');
+        if (token) {
+          localStorage.setItem(tokenKey, token);
+          window.location.hash = '';
+          return token;
+        }
+      }
+      return localStorage.getItem(tokenKey);
+    }
+
+    const token = getAccessToken();
+    if (!token) redirectToSpotifyAuth();
+
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      const player = new Spotify.Player({
+        name: "McB's Quiz Player",
+        getOAuthToken: cb => cb(token),
+        volume: 0.
