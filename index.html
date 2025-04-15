@@ -2,33 +2,14 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>McB's Music Quiz!</title>
+  <title>Redirecting...</title>
   <script>
-    // Manually update this list with your song IDs
-    const songIds = [
-      "0knqVSsgD7C8yu5yNmQFbA", // Example Song 1
-      "5Z01UMMf7V1o0MzF86s6WJ", // Example Song 2
-      "5le4sn0iMcnKU56bdmNzso", // Example Song 3
-      "6AI3ezQ4o3HUoP6Dhudph3", // Example Song 4
-      // Add more song IDs here...
-    ];
-
-    // Function to pick a random song from the list and redirect to it
-    function playRandomSong() {
-      const randomSongId = songIds[Math.floor(Math.random() * songIds.length)];
-      setTimeout(function () {
-        window.location.href = `https://open.spotify.com/track/${randomSongId}`;
-      }, 3000); // 3-second delay
-    }
+    setTimeout(function() {
+      window.location.href = "https://open.spotify.com/track/YOUR_TRACK_ID";
+    }, 3000);
   </script>
 </head>
 <body>
-  <h1>Welcome to McB's Music Quiz!</h1>
-
-  <div>
-    <button onclick="playRandomSong()">Play a Random Song</button>
-  </div>
-
-  <p>Enjoy the quiz! A random song from the list will play after a short delay.</p>
+  <p>Hang tight! Your song is loading...</p>
 </body>
 </html>
