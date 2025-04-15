@@ -4,12 +4,22 @@
   <meta charset="UTF-8">
   <title>Redirecting...</title>
   <script>
-    setTimeout(function() {
-      window.location.href = "https://open.spotify.com/track/YOUR_TRACK_ID";
-    }, 3000);
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const trackId = getQueryParam("song");
+    if (trackId) {
+      setTimeout(function () {
+        window.location.href = `https://open.spotify.com/track/${trackId}`;
+      }, 3000);
+    } else {
+      document.write("<p>No song specified.</p>");
+    }
   </script>
 </head>
 <body>
-  <p>Hang tight! Your song is loading...</p>
+  <p>Hang tight! Redirecting to your song...</p>
 </body>
 </html>
